@@ -41,3 +41,4 @@ span.sender {font-weight: bold; margin-right: 2em }
 #chat-area { margin-top: 1em; padding-top: 1em; border-top: 1px solid #808080 }
 #bot-code { color: #b0c4de; overflow: scroll; }
 #run-bot, #stop-bot { margin: 1em 0 }
+#bot-errors { color: red; padding: 1em }

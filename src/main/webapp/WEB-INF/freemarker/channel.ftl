@@ -79,7 +79,7 @@ say("Hello World!");</pre></div>
                                 try {
                                     bot(m.s.n, m.msg, m.ts);
                                 } catch (e) {
-                                    botErrors.append(Y.Node.create("<p/>").set("text", Y.dump(e)));
+                                    botErrors.append(Y.Node.create("<p/>").set("text", e.message));
                                 }
                             }
                         });
@@ -105,7 +105,7 @@ say("Hello World!");</pre></div>
             }
 
             function say(messageContent) {
-                messageContent = messageContent.replace("^\s+", "").replace("\s+$", "");
+                messageContent = messageContent.toString().replace("^\s+", "").replace("\s+$", "");
                 if (messageContent.length == 0) return;
 
                 var now = Date.now();
