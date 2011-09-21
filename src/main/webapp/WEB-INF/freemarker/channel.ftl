@@ -55,7 +55,7 @@ say("Hello World!");</pre></div>
                     memberList = Y.one("#member-list"), chatWindow = Y.one("#chat-window"), messageInput = Y.one("#message"),
                     botCode = Y.one("#bot-code"), botErrors = Y.one("#bot-errors"),
                     memberUpdate, messageUpdate, bot,
-                    lastMessageTimestamp = 0, botMessageThreshold = 5;
+                    lastReceived = 0, lastSent = 0, botMessageThreshold = 5;
 
             function updateMembers() {
                 Y.chat.members(channel, function(ml) {
@@ -67,10 +67,10 @@ say("Hello World!");</pre></div>
             }
 
             function pullMessages() {
-                Y.chat.messages(channel, lastMessageTimestamp, 20, function(ml) {
+                Y.chat.messages(channel, lastReceived, 20, function(ml) {
                     Y.all(".unconfirmed").remove();
                     Y.each(ml, function(m) {
-                        lastMessageTimestamp = m.ts;
+                        lastReceived = m.ts;
                         addMessage(m);
                     });
                     if (bot) {
@@ -107,7 +107,12 @@ say("Hello World!");</pre></div>
             function say(messageContent) {
                 messageContent = messageContent.replace("^\s+", "").replace("\s+$", "");
                 if (messageContent.length == 0) return;
-                Y.chat.send(channel, uid, messageContent, function(m) { addMessage(m, "unconfirmed"); });
+
+                var now = Date.now();
+                if ((now - lastSent) >= 2000) {
+                    lastSent = now;
+                    Y.chat.send(channel, uid, messageContent, function(m) { addMessage(m, "unconfirmed"); });
+                }
             }
 
             function sendMessage(e) {

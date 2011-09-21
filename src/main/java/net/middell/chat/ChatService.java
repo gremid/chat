@@ -25,6 +25,11 @@ public class ChatService implements ApplicationContextAware {
     private static final int MAX_QUEUE_SIZE = 1000;
 
     /**
+     * Minimum number of milliseconds between messages by a single user.
+     */
+    private static final long MIN_TIME_BETWEEN_MESSAGES = 2000;
+
+    /**
      * We remove orphaned logins after 5 minutes of inactivity.
      */
     private static final int LOGIN_EXPIRY = 5 * 60 * 1000;
@@ -81,6 +86,7 @@ public class ChatService implements ApplicationContextAware {
     public synchronized ChatMessage send(ChatChannel channel, ChatUser sender, String message) {
         Preconditions.checkArgument(messageQueues.containsKey(channel));
         Preconditions.checkArgument(members.get(channel).contains(sender));
+        Preconditions.checkArgument((System.currentTimeMillis() - sender.getLastMessage()) >= MIN_TIME_BETWEEN_MESSAGES);
 
         final Deque<ChatMessage> channelQueue = messageQueues.get(channel);
         if (channelQueue.size() == MAX_QUEUE_SIZE) {

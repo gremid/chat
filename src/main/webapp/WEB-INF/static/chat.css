@@ -21,7 +21,7 @@ input[type='text'], textarea { margin: 0.25em 0; padding: 0.25em; }
 #start-panel { margin: 5em 0}
 .notice { color: #6a5acd; margin: 2em; }
 
-#member-list, #chat-window { height: 300px;  width: 100%; }
+#member-list, #chat-window { height: 150px;  width: 100%; }
 #member-list, #chat-window { margin: 0; padding: 0; overflow-y: auto }
 
 p.message, p.member { padding: 0.5em }
@@ -37,7 +37,7 @@ span.sender {font-weight: bold; margin-right: 2em }
 #message { margin: 1em 0 ; padding: 0.25em; width: 50em; }
 
 #bot-control { text-align: right }
-#bot-code, #bot-editor { position: relative; width: 100%; height: 300px; }
+#bot-code, #bot-editor { position: relative; width: 100%; height: 250px; }
 #chat-area { margin-top: 1em; padding-top: 1em; border-top: 1px solid #808080 }
 #bot-code { color: #b0c4de; overflow: scroll; }
 #run-bot, #stop-bot { margin: 1em 0 }
